@@ -2,9 +2,8 @@
 help:
 	@echo "Доступные команды:"
 
-PROJECTS = user-api
-REPO_user-api = https://github.com/martenasoft/api-system-user.git
-
+PROJECTS = user-api permission-api authentication-api authorization-api
+#
 # Установка зависимостей
 .PHONY: install
 install:
@@ -31,6 +30,21 @@ install:
 			git clone https://github.com/martenasoft/api-system-user.git "/tmp/martenasoft-api-system/$$proj"; \
 			echo "Copying files from /tmp/martenasoft-api-system/$$proj to $$projPath/api/"; \
 		fi; \
+		if [ "$$proj" = 'permission-api' ]; then \
+        	echo "Cloning repo: https://github.com/martenasoft/api-system-permission.git into /tmp/martenasoft-api-system/$$proj"; \
+        	git clone https://github.com/martenasoft/api-system-permission.git "/tmp/martenasoft-api-system/$$proj"; \
+        	echo "Copying files from /tmp/martenasoft-api-system/$$proj to $$projPath/api/"; \
+        fi; \
+        if [ "$$proj" = 'authentication-api' ]; then \
+        	echo "Cloning repo: https://github.com/martenasoft/api-system-authentication into /tmp/martenasoft-api-system/$$proj"; \
+            git clone https://github.com/martenasoft/api-system-authentication "/tmp/martenasoft-api-system/$$proj"; \
+            echo "Copying files from /tmp/martenasoft-api-system/$$proj to $$projPath/api/"; \
+        fi; \
+        if [ "$$proj" = 'authorization-api' ]; then \
+        	echo "Cloning repo: https://github.com/martenasoft/api-system-authorization.git into /tmp/martenasoft-api-system/$$proj"; \
+            git clone https://github.com/martenasoft/api-system-authorization.git "/tmp/martenasoft-api-system/$$proj"; \
+            echo "Copying files from /tmp/martenasoft-api-system/$$proj to $$projPath/api/"; \
+        fi; \
 		localDomain="$$name-$$proj"; \
 		cp -rf "/tmp/martenasoft-api-system/$$proj/"* "$$projPath/api/"; \
 		if [ ! -f "$$projPath/api/.symfony.local.yaml" ]; then \
